@@ -38,6 +38,16 @@ npm run dev
 
 Приложение будет доступно по адресу http://localhost:5173.
 
+## Настройка
+
+Адрес API по умолчанию: `https://api.green-api.com`. Чтобы изменить его, скопируйте `.env.example` в `.env` и укажите своё значение:
+
+```
+VITE_GREEN_API_URL=https://api.green-api.com
+```
+
+Учётные данные (`idInstance`, `apiTokenInstance`) вводятся на странице входа и хранятся в `localStorage` браузера.
+
 ## Сборка
 
 ```bash
