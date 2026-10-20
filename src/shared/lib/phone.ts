@@ -7,6 +7,10 @@ export function isValidPhone(value: string) {
   return digits.length >= 10 && digits.length <= 15
 }
 
+export function toChatId(value: string) {
+  return `${normalizePhone(value)}@c.us`
+}
+
 export function formatPhone(value: string) {
   const digits = normalizePhone(value)
 
