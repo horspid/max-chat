@@ -5,6 +5,15 @@ export interface ApiCredentials {
   apiTokenInstance: string
 }
 
+interface RequestOptions {
+  httpMethod: 'GET' | 'POST' | 'DELETE'
+  method: string
+  params?: Array<string | number>
+  query?: Record<string, string | number>
+  body?: Record<string, unknown>
+  signal?: AbortSignal
+}
+
 export class ApiError extends Error {
   status: number
 
@@ -15,19 +24,21 @@ export class ApiError extends Error {
   }
 }
 
-export async function greenApiPost<TResponse>(
+export async function greenApiRequest<TResponse>(
   credentials: ApiCredentials,
-  method: string,
-  body: Record<string, unknown>,
+  { httpMethod, method, params = [], query, body, signal }: RequestOptions,
 ): Promise<TResponse> {
   const instance = encodeURIComponent(credentials.idInstance)
   const token = encodeURIComponent(credentials.apiTokenInstance)
-  const url = `${API_URL}/waInstance${instance}/${method}/${token}`
+  const extraPath = params.map((param) => `/${encodeURIComponent(String(param))}`).join('')
+  const search = query ? `?${new URLSearchParams(query as Record<string, string>).toString()}` : ''
+  const url = `${API_URL}/waInstance${instance}/${method}/${token}${extraPath}${search}`
 
   const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    method: httpMethod,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+    signal,
   })
 
   if (!response.ok) {
@@ -35,4 +46,12 @@ export async function greenApiPost<TResponse>(
   }
 
   return response.json() as Promise<TResponse>
+}
+
+export function greenApiPost<TResponse>(
+  credentials: ApiCredentials,
+  method: string,
+  body: Record<string, unknown>,
+) {
+  return greenApiRequest<TResponse>(credentials, { httpMethod: 'POST', method, body })
 }
