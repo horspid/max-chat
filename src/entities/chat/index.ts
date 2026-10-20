@@ -1,2 +1,2 @@
-export type { Chat, Message } from './model/types'
+export type { Chat, Message, MessageStatus } from './model/types'
 export { useChats } from './model/useChats'

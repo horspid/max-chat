@@ -47,7 +47,9 @@ export function ChatWindow({ chat, onSend, onBack }: ChatWindowProps) {
             className={`${styles.message} ${message.outgoing ? styles.outgoing : styles.incoming}`}
           >
             <span className={styles.text}>{message.text}</span>
-            <span className={styles.time}>{formatTime(message.createdAt)}</span>
+            <span className={message.status === 'error' ? styles.failed : styles.time}>
+              {message.status === 'error' ? 'Не отправлено' : formatTime(message.createdAt)}
+            </span>
           </div>
         ))}
         <div ref={endRef} />

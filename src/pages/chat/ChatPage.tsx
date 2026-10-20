@@ -7,7 +7,7 @@ import styles from './ChatPage.module.css'
 
 export function ChatPage() {
   const { credentials, logout } = useSession()
-  const { chats, activeChat, selectChat, closeChat, createChat, sendMessage } = useChats()
+  const { chats, activeChat, selectChat, closeChat, createChat, sendMessage } = useChats(credentials)
 
   if (!credentials) {
     return <Navigate to="/login" replace />
