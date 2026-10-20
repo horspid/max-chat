@@ -17,11 +17,6 @@
 - React Router
 - CSS Modules
 
-## Требования
-
-- Node.js 20 или новее
-- npm 10 или новее
-
 ## Запуск
 
 Установите зависимости:
@@ -40,12 +35,6 @@ npm run dev
 
 ## Настройка
 
-Адрес API по умолчанию: `https://api.green-api.com`. Чтобы изменить его, скопируйте `.env.example` в `.env` и укажите своё значение:
-
-```
-VITE_GREEN_API_URL=https://api.green-api.com
-```
-
 Учётные данные (`idInstance`, `apiTokenInstance`) вводятся на странице входа и хранятся в `localStorage` браузера.
 
 ## Настройка инстанса GREEN-API
@@ -57,14 +46,6 @@ VITE_GREEN_API_URL=https://api.green-api.com
 
 Приложение получает ответы через `receiveNotification` и подтверждает их через `deleteNotification`. Инстанс должен быть авторизован в MAX.
 
-## Сборка
-
-```bash
-npm run build
-npm run preview
-```
-
-Готовая сборка появится в папке `dist`.
 
 ## Структура проекта
 
