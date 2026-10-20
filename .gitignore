@@ -3,6 +3,7 @@ dist
 *.local
 .env
 .env.*
+!.env.example
 .vscode
 .idea
 *.log
